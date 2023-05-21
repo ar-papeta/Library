@@ -11,8 +11,7 @@ public static class ServiceCollectionExt
     public static IServiceCollection AddDALServices(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, LibraryUnitOfWork>();
-        services.AddDbContext<LibraryContext>(opt => opt
-                .UseInMemoryDatabase("TestLibraryDb"));
+        services.AddDbContext<LibraryContext>();
 
         return services;
     }

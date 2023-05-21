@@ -14,10 +14,19 @@ public class LibraryContext : DbContext
     //.
     //.
 
+    public string DbPath { get; }
     public LibraryContext(DbContextOptions<LibraryContext> options)
-            : base(options) { }
+      : base(options)
+    {
+        var path = Environment.CurrentDirectory;
+        DbPath = Path.Join(path, "library.db");
+    }
 
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite($"Data Source={DbPath}");
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
