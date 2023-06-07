@@ -23,36 +23,25 @@ public class Program
 
         //await host.RunAsync();
 
-        var provider = host.Services.GetService<UserController>();
+        var userController = host.Services.GetService<UserController>();
 
+        Console.WriteLine("Press 1 to add new USER");
+        RegistrationViewModel newUser = new();
+        while (true)
+        {
+            if (Console.ReadLine() == "1")
+                break;
+        }
+        Console.WriteLine("Enter name:");
+        newUser.Name = Console.ReadLine();
 
+        Console.WriteLine("Enter email:");
+        newUser.EMail = Console.ReadLine();
 
-        //var serviceProvider = new ServiceCollection()
-        //            .AddBLLServices()
-        //            .AddSingleton<UserController>()         //ДЕЛЕГУЭМО ФРЕЙМВОРКУ СТВОРЕННЯ ОБ'ЄКТІВ ВСІХ НАШИХ КЛАСІВ (СЕРВІСІВ)
-        //            .BuildServiceProvider();
+        Console.WriteLine("Enter password:");
+        newUser.Password = Console.ReadLine();
 
-
-        ////do the actual work here
-        //var simulator = serviceProvider.GetService<UserController>();
-
-        //Console.WriteLine("Press 1 to add new USER");
-        //RegistrationViewModel newUser = new();
-        //while (true)
-        //{
-        //    if (Console.ReadLine() == "1")
-        //        break;
-        //}
-        //Console.WriteLine("Enter name:");
-        //newUser.Name = Console.ReadLine();
-
-        //Console.WriteLine("Enter email:");
-        //newUser.EMail = Console.ReadLine();
-
-        //Console.WriteLine("Enter password:");
-        //newUser.Password = Console.ReadLine();
-
-        //provider.AddUser(newUser);
+        userController!.AddUser(newUser);
 
         Console.WriteLine("Press 2 to get users list");
         while (true)
@@ -61,7 +50,7 @@ public class Program
                 break;
         }
 
-        var users = provider.GetAllUsers();
+        var users = userController.GetAllUsers();
         foreach (var user in users)
         {
             Console.WriteLine(user.Name);

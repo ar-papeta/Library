@@ -15,4 +15,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Db\Uof\" />
+    <Folder Include="Entities\" />
+  </ItemGroup>
+
 </Project>
