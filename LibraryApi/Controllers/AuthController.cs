@@ -1,0 +1,50 @@
+﻿using BLL.Services.VisitorService;
+using LibraryApi.Auth;
+using LibraryApi.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace LibraryApi.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class AuthController : ControllerBase
+{
+    private readonly IAuthService _authService;
+    public AuthController(IAuthService authService)
+    {
+        _authService = authService;
+    }
+
+    [HttpGet]
+    [Route("admin")]
+    [Authorize(Policy = "OnlyForAdmin")]
+    public IActionResult Get()
+    {
+        return Ok("Only for admin endpoint test");
+    }
+
+    [HttpPost]
+    [Route("manager")]
+    [Authorize(Policy = "OnlyForManager")]
+    public IActionResult Post()
+    {
+        return Ok("Only for manager endpoint test");
+    }
+
+    [HttpGet]
+    [Authorize]
+    [Route("logout")]
+    public IActionResult Loguot()
+    {
+        return Ok("Logout success");
+    }
+
+    [HttpPost]
+    [Route("login")]
+    public IActionResult ValidateUser([FromBody] AuthenticationRequest userAuthData)
+    {
+        return Ok(_authService.AuthenticateUser(userAuthData));
+    }
+}

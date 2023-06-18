@@ -1,4 +1,6 @@
 ﻿using BLL.Helpers.PasswordHasher;
+using BLL.Services.BookService;
+using BLL.Services.VisitorService;
 using DAL.Extentions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +13,8 @@ public static class ServiceCollectionExt
     {
         services.AddDALServices();
         services.AddScoped<IPasswordHash, PasswordHash>();
+        services.AddScoped<IBookService, BookService>();
+        services.AddScoped<IVisitorService, VisitorService>();
         return services;
     }
 }
